@@ -1,0 +1,7 @@
+{
+  "name": "ai-mystery-room",
+  "private": true,
+  "workspaces": ["client", "server", "shared"],
+  "scripts": {"dev": "concurrently -n server,client -c yellow,cyan \"npm:dev:server\" \"npm:dev:client\"", "dev:server": "npm --workspace server run dev", "dev:client": "npm --workspace client run dev", "build": "npm --workspace shared run build && npm --workspace server run build && npm --workspace client run build", "typecheck": "npm --workspace shared run typecheck && npm --workspace server run typecheck && npm --workspace client run typecheck"},
+  "devDependencies": {"concurrently": "^9.2.1", "typescript": "^5.9.3"}
+}

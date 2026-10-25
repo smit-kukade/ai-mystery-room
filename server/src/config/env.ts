@@ -1,0 +1,2 @@
+import 'dotenv/config';
+export const env={nodeEnv:process.env.NODE_ENV??'development',port:Number(process.env.PORT??4000),clientOrigin:process.env.CLIENT_ORIGIN??'http://localhost:5173',mongoUri:process.env.MONGODB_URI??'',geminiKey:process.env.GEMINI_API_KEY??'',geminiModel:process.env.GEMINI_MODEL??'gemini-3.8-flash',geminiTimeout:Number(process.env.GEMINI_TIMEOUT_MS??45000),limitWindow:Number(process.env.RATE_LIMIT_WINDOW_MS??900000),limitMax:Number(process.env.RATE_LIMIT_MAX??20)};

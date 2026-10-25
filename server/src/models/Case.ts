@@ -1,0 +1,5 @@
+import mongoose,{Schema} from 'mongoose';
+import type { GeneratedCase, Result } from '@mystery/shared';
+const CaseSchema=new Schema({publicId:{type:String,required:true,unique:true,index:true},title:String,synopsis:String,premise:String,difficulty:String,theme:String,incident:Schema.Types.Mixed,suspects:[Schema.Types.Mixed],timeline:[Schema.Types.Mixed],evidence:[Schema.Types.Mixed],solutionPrivate:{type:Schema.Types.Mixed,required:true},accusation:{type:Schema.Types.Mixed},storedResult:{type:Schema.Types.Mixed},status:{type:String,default:'investigating'},createdAt:{type:Date,default:Date.now}},{versionKey:false});
+export interface CaseRecord extends mongoose.Document {publicId:string;title:string;synopsis:string;premise:string;difficulty:string;theme?:string;incident:GeneratedCase['incident'];suspects:GeneratedCase['suspects'];timeline:GeneratedCase['timeline'];evidence:GeneratedCase['evidence'];solutionPrivate:GeneratedCase['solution'];accusation?:{suspectId:string;reasoning?:string;correct:boolean;submittedAt:Date};storedResult?:Result;status:'investigating'|'solved';createdAt:Date}
+export const CaseModel=mongoose.model<CaseRecord>('Case',CaseSchema);
