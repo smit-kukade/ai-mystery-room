@@ -3,7 +3,7 @@ services:
     name: ai-mystery-room
     runtime: node
     plan: free
-    buildCommand: npm ci && npm run build
+    buildCommand: npm ci --include=dev && npm run build
     startCommand: npm run start --workspace server
     healthCheckPath: /api/v1/health
     envVars:
