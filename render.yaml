@@ -11,5 +11,9 @@ services:
         value: production
       - key: MONGODB_URI
         sync: false
+      - key: SESSION_SECRET
+        sync: false
+      - key: CLIENT_ORIGIN
+        sync: false
       - key: GROQ_API_KEY
         sync: false

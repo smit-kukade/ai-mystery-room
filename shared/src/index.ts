@@ -2,9 +2,12 @@ import { z } from 'zod';
 
 export const evidenceTypes = ['chat','image','cctv','document','testimony'] as const;
 export const difficultySchema = z.enum(['easy','medium','hard']);
+export const predefinedMysteryTopics = ['Murder Mystery','Cybercrime','Theft','Missing Person','General Mystery'] as const;
+export const mysteryTopicSchema = z.string().trim().min(1).max(80).default('General Mystery');
 export const createCaseSchema = z.object({
   premise: z.string().trim().min(30).max(1000),
   difficulty: difficultySchema.default('medium'),
+  topic: mysteryTopicSchema,
   theme: z.string().trim().max(80).optional(),
   setting: z.string().trim().max(160).optional(),
   evidencePreferences: z.array(z.enum(evidenceTypes)).max(5).default([...evidenceTypes])
@@ -25,5 +28,6 @@ export type GeneratedCase = z.infer<typeof generationSchema>;
 export type Suspect = GeneratedCase['suspects'][number];
 export type EvidenceItem = GeneratedCase['evidence'][number] & {media?:{kind:'none';isSimulated:true;altText:string}};
 export type TimelineEvent = GeneratedCase['timeline'];
-export interface PlayerCase { id:string; title:string; synopsis:string; incident:GeneratedCase['incident']; suspects:Suspect[]; timeline:GeneratedCase['timeline']; evidence:EvidenceItem[]; difficulty:'easy'|'medium'|'hard'; status:'investigating'|'solved'; createdAt:string; result?:Result }
+export interface PlayerCase { id:string; title:string; synopsis:string; premise?:string; incident:GeneratedCase['incident']; suspects:Suspect[]; timeline:GeneratedCase['timeline']; evidence:EvidenceItem[]; difficulty:'easy'|'medium'|'hard'; topic:string; status:'investigating'|'solved'; createdAt?:string; result?:Result }
+export interface MysterySummary { id:string; title:string; synopsis:string; premise?:string; topic:string; status:'investigating'|'solved'; createdAt?:string }
 export interface Result { correct:boolean; selectedSuspectId:string; culprit:{id:string;name:string}; explanation:string; supportingEvidenceIds:string[]; alternativeExplanation:string }

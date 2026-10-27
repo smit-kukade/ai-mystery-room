@@ -1,6 +1,8 @@
 node_modules/
 .npm-cache/
 dist/
+dist-test/
+**/.test-cache/
 .env
 .env.*
 !.env.example
